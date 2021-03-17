@@ -6,6 +6,11 @@ php:
   - 7.4
   - 8.0snapshot
 
-install: travis_retry composer install
+install:
+  - pecl install xdebug
+  - travis_retry composer install
 
-script: composer test
+script:
+  - php -v
+  - php -i | grep xdebug
+  - php -d xdebug.mode=coverage vendor/bin/phpunit
